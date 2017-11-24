@@ -42,7 +42,7 @@ NOTE: Internet connectivity is required during installation. Be patient during D
 
 In PowerShell execute:
 
-    **`scoop install bigclown-toolchain`**
+* **`scoop install bigclown-toolchain`**
 
 Components:
 * [GNU ARM Embedded Toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm)
