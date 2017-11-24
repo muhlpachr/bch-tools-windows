@@ -25,8 +25,8 @@ NOTE: Internet connectivity is required during installation. Be patient during D
 
 3. Install [Scoop](http://scoop.sh/) command-line installer for Windows
 
-    * set-executionpolicy remotesigned -scope currentuser
-    * iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+    * `set-executionpolicy remotesigned -scope currentuser`
+    * `iex (new-object net.webclient).downloadstring('https://get.scoop.sh')`
 
     You may have a look at [Scope Dcocumentation](https://github.com/lukesampson/scoop/wiki/Quick-Start)
 
@@ -40,8 +40,11 @@ NOTE: Internet connectivity is required during installation. Be patient during D
 
 ### BigClown Toolchain
 
-**`scoop install bigclown-toolchain`**
+In PowerShell execute:
 
+    **`scoop install bigclown-toolchain`**
+
+Components:
 * [GNU ARM Embedded Toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm)
 * [GNU Make](https://www.gnu.org/software/make/)
 * [USB DFU Device Firmware Upgrade Utilities](http://dfu-util.sourceforge.net)
