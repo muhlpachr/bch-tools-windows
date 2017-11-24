@@ -1,0 +1,24 @@
+{
+    "version":  "6-2017-q2-update",
+    "license":  "GNU GPL, Version 3",
+    "url": "https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/6-2017q2/gcc-arm-none-eabi-6-2017-q2-update-win32-sha2.exe#/dl.7z",
+    "homepage": "https://developer.arm.com/open-source/gnu-toolchain/gnu-rm",
+    "hash":  "46f8141cebde194e66d85a67a81524a75edfaf693887eecc4910b7ebb8b833e8",
+    "bin":  [
+        "bin\\arm-none-eabi-gcc.exe",
+        "bin\\arm-none-eabi-gdb.exe",
+        "bin\\arm-none-eabi-objcopy.exe",
+        "bin\\arm-none-eabi-size.exe"        
+    ],
+    "checkver": {
+        "url": "https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads",
+        "re": "<h3>Version\\s+(.*)<\/h3>"
+    },    
+    "post_install": "
+        pushd
+        cd \"$dir\" 
+        rm -r -force '$PLUGINSDIR'
+        rm Uninstall.exe.nsis
+        popd
+    "
+}

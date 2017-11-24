@@ -1,0 +1,13 @@
+{
+    "version":  "0.8",
+    "license":  "GNU GPL, Version 2",
+    "url": "http://dfu-util.sourceforge.net/releases/dfu-util-0.8-binaries/win32-mingw32/dfu-util-static.exe",
+    "homepage": "http://dfu-util.sourceforge.net/",
+    "hash":  "8004261822a2836e3f076ba20d0989acd92b589ac372d8e14d5618510f43213b",
+    "bin":  [
+        ["dfu-util-static.exe", "dfu-util"]
+    ],
+    "notes": "Usage example:
+    dfu-util -l
+    "
+}

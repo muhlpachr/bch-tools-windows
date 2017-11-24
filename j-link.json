@@ -1,0 +1,36 @@
+﻿{
+    "version":  "V6.20i",
+    "license":  "https://www.segger.com/products/debug-probes/j-link/tools/terms-of-use/",
+    "url": "",
+    "depends":  ["curl", "7zip"],
+    "homepage": "https://www.segger.com/products/debug-probes/j-link/",
+    "hash":  "",
+    "bin":  [
+        "JLinkGDBServer.exe",
+        "JLinkGDBServerCL.exe",
+        "JFlash.exe"
+    ],
+    "pre_install": "
+        pushd
+        cd \"$dir\"
+        remove-item alias:curl -ErrorAction SilentlyContinue
+        Write \"Downloading J-Link for Windows\"
+        curl -X POST -d \"accept_license_agreement=accepted&submit=Download software\" -OL https://www.segger.com/downloads/jlink/JLink_Windows_V620i.exe
+        7z x JLink_Windows_V620i.exe
+        rm JLink_Windows_V620i.exe
+        rm -r -force '$PLUGINSDIR'
+        rm Uninstall.exe.nsis
+        Write \"Installing J-Link drivers, allow Admin in UAC please.\"
+        if ((gwmi win32_operatingsystem | select osarchitecture).osarchitecture -eq \"64-bit\")
+        {
+            Write \"Detected 64-bit OS - installing 64-bit drivers\"
+            USBDriver\\x64\\dpinst_x64.exe /s
+        }
+        else
+        {
+            Write \"Detected 32-bit OS - installing 32-bit drivers\"
+            USBDriver\\x86\\dpinst_x86.exe /s
+        }
+        popd
+    "
+}

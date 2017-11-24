@@ -1,0 +1,49 @@
+{
+    "version":  "1.0-rc0",
+    "license":  "MIT",
+    "url": [
+        "https://raw.github.com/muhlpachr/bch-tools-windows/master/download/make.exe",
+        "https://raw.github.com/muhlpachr/bch-tools-windows/master/BigClown.ico"
+    ],
+    "depends":  ["git", "busybox", "gcc-arm-none-eabi-slim", "dfu-util", "python"],
+    "homepage": "https://github.com/muhlpachr/bch-tools-windows",
+    "hash":  [
+        "4a3ee37a813c9c8e1c00db3a84e158a3bf54ebae3ec0a7656ac9e9733d4097cc",
+        "950335e5e282b8be81566b7e24f05f7302c0e46aebe7acd30bc6c61a3dee251c"
+    ],
+    "bin":  "make.exe",
+    "env_set": {
+        "BigClownToolchainVersion": "$version"
+    },    
+    "post_install": "
+    Write \"Creating shortcut for BigClown Toolchain\"
+    create_startmenu_shortcuts($manifest, $dir, $global, $arch)
+    $shortcut = \"$([environment]::getfolderpath('startmenu'))\\Programs\\Scoop Apps\\BigClown Toolchain.lnk\"
+    if(Test-Path -Path $shortcut) {
+        Remove-Item $shortcut
+    }
+    $wsShell = New-Object -ComObject WScript.Shell
+    $wsShell = $wsShell.CreateShortcut($shortcut)
+    $wsShell.TargetPath = \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\"
+    $command = '$host.ui.RawUI.WindowTitle =\"BigClown Toolchain $env:BigClownToolchainVersion\"'
+    $encoded = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($command))
+    $wsShell.Arguments = \"-NoExit -encodedCommand $encoded\"
+    $wsShell.IconLocation = \"$dir\\BigClown.ico\"
+    $wsShell.WorkingDirectory = \"$env:HOMEDRIVE$env:HOMEPATH\"
+    $wsShell.Save()
+    Write \"Installing BigClown Firmware Tool\"
+    pip3 install --upgrade bcf
+    Write \"Updating local BigClown Firmware Tool cache with BigClown firmwares from GitHub\"
+    bcf update
+    ",
+    "suggest": [
+        "conconf"
+    ],
+    "notes": "GNU Make is from http://www.equation.com/servlet/equation.cmd?fa=make 4.2
+    
+    Usage example:
+    bcf create bc-test
+    cd bc-test
+    make
+    "
+}
